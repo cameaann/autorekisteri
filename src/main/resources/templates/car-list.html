@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Näytää autot</title>
+</head>
+<body>
+<div>
+  <h1>Autot</h1>
+    <table>
+        <thead>
+        <tr>
+            <td>Rekisterinumero</td>
+            <td>Merkki</td>
+            <td>Malli</td>
+            <td>Valmistusvuosi</td>
+            <td>Omistaja</td>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="auto : ${autot}">
+                <td th:text="${auto.getRekisterinumero()}"></td>
+                <td th:text="${auto.getMerkki()}"></td>
+                <td th:text="${auto.getMalli()}"></td>
+                <td th:text="${auto.getValmistusvuosi()}"></td>
+                <td th:each="omistaja : ${auto.getOmistajat()}">
+                    <span th:text="${omistaja.getEtunimi()}"></span>
+                    <span th:text="${omistaja.getSukunimi()}"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+  <a th:href="@{/}">Takaisin</a>
+</div>
+
+
+</body>
+</html>

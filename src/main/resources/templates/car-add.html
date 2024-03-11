@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Lisää auto</title>
+</head>
+<body>
+<div>
+    <h1>Autot</h1>
+    <ul>
+        <li th:each="auto : ${autot}">
+            <a th:href="@{/car-edit/{id}(id=${auto.id})}">
+                <span th:text="${auto.getMerkki()}"></span>
+                <span th:text="${auto.getMalli()}"></span>
+            </a>
+        </li>
+    </ul>
+
+
+    <h1>Lisää auto</h1>
+
+    <form th:action="@{/car-add}" method="post">
+        <div th:class="formfield">
+            <label for="valmistenumero">Valmistenumero:</label>
+            <input type="text" name="valmistenumero" id="valmistenumero"/>
+        </div>
+        <div th:class="formfield">
+            <label for="rekisterinumero">Rekisterinumero:</label>
+            <input type="text" name="rekisterinumero" id="rekisterinumero"/>
+        </div>
+        <div th:class="formfield">
+            <label for="merkki">Merkki:</label>
+            <input type="text" name="merkki" id="merkki"/>
+        </div>
+        <div th:class="formfield">
+            <label for="malli">Malli:</label>
+            <input type="text" name="malli" id="malli"/>
+        </div>
+        <div th:class="formfield">
+            <label for="valmistusvuosi">Valmistusvuosi:</label>
+            <input type="text" name="valmistusvuosi" id="valmistusvuosi"/>
+        </div>
+
+        <input type="submit" value="Lisää">
+
+    </form>
+
+    <a th:href="@{/}">Takaisin</a>
+</div>
+
+
+</body>
+</html>
