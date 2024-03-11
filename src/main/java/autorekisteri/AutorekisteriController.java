@@ -9,8 +9,8 @@ import java.util.ArrayList;
 @Controller
 public class AutorekisteriController {
 
-    private AutoRepository autoRepository;
-    private OmistajaRepository omistajaRepository;
+    private final AutoRepository autoRepository;
+    private final OmistajaRepository omistajaRepository;
 
     public AutorekisteriController(AutoRepository autoRepos, OmistajaRepository omistajaRepos) {
         this.autoRepository = autoRepos;

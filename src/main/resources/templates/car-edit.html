@@ -21,10 +21,11 @@
         <form th:action="@{/car-edit/{id}/owners(id = ${auto.id})}" method="post">
             <div th:class="formfield">
                 <label for="ownerId">Omistaja:</label>
-                <select type="text" name="ownerId" id="ownerId"/>
-                <option th:each="omistaja : ${omistajat}"
+                <select name="ownerId" id="ownerId">
+                    <option th:each="omistaja : ${omistajat}"
                         th:text="|${omistaja.getEtunimi()} ${omistaja.getSukunimi()}|"
-                        th:value="${omistaja.id}"></option>
+                        th:value="${omistaja.id}">
+                    </option>
                 </select>
             </div>
             <input type="submit" value="Lisää">
