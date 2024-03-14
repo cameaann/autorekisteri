@@ -1,0 +1,154 @@
+html{
+    font-size: 62.5%;
+}
+body{
+    font-size: 1.6rem;
+    background-color: #FFE6E6;
+    font-family: "PT Sans", sans-serif;
+}
+.wrap-container{
+    width: 40rem;
+    margin: 10rem auto;
+}
+h1{
+    font-size: 3.6rem;
+    margin-block-end: 4rem;
+    text-align: center;
+    color: #7469B6;
+    font-weight: bold;
+}
+h3{
+    color: darkslategray;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-block-end: 0;
+    margin-block-start: 6rem;
+}
+
+a{
+    text-decoration: none;
+}
+
+.link-container{
+    display: flex;
+    width: 80%;
+    justify-content: space-evenly;
+    margin: 0 auto;
+}
+
+form{
+    width:100%;
+    margin: 4rem auto;
+    color: #7469B6;
+}
+.formfield{
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    margin-block-end: 1rem;
+    align-items: center;
+}
+label{
+    flex-basis: 40%;
+}
+input[type = "text"],
+select {
+    flex-basis: 70%;
+    height: 2.5rem;
+    border: 1px solid #7469B6;
+}
+select{
+    height: 3rem;
+}
+
+.btn{
+    display: block;
+    border: none;
+    padding: 1rem 1.5rem;
+    width:fit-content;
+    margin: 0 auto;
+    border-radius: 2px;
+    color:#FFFFFF;
+    background-color: #AD88C6;
+}
+.btn:hover{
+    cursor: pointer;
+    background-color: #07a5ef;
+    color: #FFE6E6;
+}
+.btn-add{
+    padding: 1rem;
+    font-size: 1.4rem;
+    color: #FFFFFF;
+    border: none;
+    height: fit-content;
+    background-color: #AD88C6;
+
+}
+.btn-add:hover{
+    cursor: pointer;
+    background-color: #07a5ef;
+}
+
+.car-info{
+font-size: 1.6rem;
+}
+
+.form-new-owner{
+    display: flex;
+    width:100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.form-exist-owner{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.form-exist-owner> .formfield{
+    flex-basis: 80%;
+}
+.input-group>.formfield{
+    flex-basis: 80%;
+    margin-block-end: 0;
+}
+.form-new-owner>input[type="text"],
+.form-exist-owner>input[type="text"]{
+    flex-basis: 70%;
+}
+
+.form-exist-owner label,
+.form-new-owner label{
+    font-weight: bold;
+    flex-basis: 30%;
+}
+
+.input-group{
+    flex-basis: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 8rem;
+}
+
+table{
+    width: 100%;
+    font-size: 1.6rem;
+    margin-block-end: 4rem;
+}
+tr, td{
+    border: 2px solid #7469B6;
+    padding: 1rem;
+    vertical-align: middle;
+}
+th{
+    border: 2px solid #7469B6;
+    padding: 1rem;
+    font-weight: bold;
+    text-align:left;
+    color: #7469B6;
+}
+.container{
+    width:90rem;
+    margin:10rem auto;
+}

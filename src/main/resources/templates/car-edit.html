@@ -1,51 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/reset.css">
+    <link rel="stylesheet" href="/styles.css">
     <title>Auton sivu</title>
 </head>
 <body>
-<div>
+<div th:class="wrap-container">
     <h1>Auto</h1>
-    <div><span>Valmistenumero: </span><span th:text="${auto.getValmistenumero()}"></span></div>
-    <div><span>Rekisterinumero: </span><span th:text="${auto.getRekisterinumero()}"></span></div>
-    <div><span>Merkki: </span><span th:text="${auto.getMerkki()}"></span></div>
-    <div><span>Malli: </span><span th:text="${auto.getMalli()}"></span></div>
-    <div><span>Valmistusvuosi: </span><span th:text="${auto.getValmistusvuosi()}"></span></div>
-    <div><span>Omistajat: </span>
-        <ul th:each="omistaja :${auto.getOmistajat()}">
-            <li th:text="|${omistaja.getEtunimi()} ${omistaja.getSukunimi()}|"></li>
-        </ul>
+    <div th:class="car-info">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Valmistenumero</td>
+                    <td th:text="${auto.getValmistenumero()}"></td>
+                </tr>
+                <tr>
+                    <td>Rekisterinumero</td>
+                    <td th:text="${auto.getValmistenumero()}"></td>
+                </tr>
+                <tr>
+                    <td>Merkki</td>
+                    <td th:text="${auto.getMerkki()}"></td>
+                </tr>
+                <tr>
+                    <td>Malli</td>
+                    <td th:text="${auto.getMalli()}"></td>
+                </tr>
+                <tr>
+                    <td>Valmistusvuosi</td>
+                    <td th:text="${auto.getValmistusvuosi()}"></td>
+                </tr>
+                <tr>
+                    <td>Omistajat</td>
+                    <td>
+                        <div th:each="omistaja :${auto.getOmistajat()}">
+                            <span  th:text="|${omistaja.getEtunimi()} ${omistaja.getSukunimi()}|"></span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-        <h4>Lisää omistajaa</h4>
-        <form th:action="@{/car-edit/{id}/owners(id = ${auto.id})}" method="post">
+    <div>
+        <h3>Lisää omistajaa</h3>
+        <form th:class="form-exist-owner" th:action="@{/car-edit/{id}/owners(id = ${auto.id})}" method="post">
             <div th:class="formfield">
                 <label for="ownerId">Omistaja:</label>
                 <select name="ownerId" id="ownerId">
                     <option th:each="omistaja : ${omistajat}"
-                        th:text="|${omistaja.getEtunimi()} ${omistaja.getSukunimi()}|"
-                        th:value="${omistaja.id}">
+                            th:text="|${omistaja.getEtunimi()} ${omistaja.getSukunimi()}|"
+                            th:value="${omistaja.id}">
                     </option>
                 </select>
             </div>
-            <input type="submit" value="Lisää">
+            <input th:class="btn-add" type="submit" value="Lisää">
+            <span th:if="${error}" th:text="${error}"></span>
         </form>
     </div>
 
 
-    <form th:action="@{/cars}" method="post">
-        <div th:class="formfield">
-            <label for="etunimi">Etunimi:</label>
-            <input type="text" name="name" id="etunimi"/>
+    <form th:class="form-new-owner" th:action="@{/car-edit/{id}/owners(id = ${auto.id})}" method="post">
+        <div th:class="input-group">
+            <div th:class="formfield">
+                <label for="name">Etunimi:</label>
+                <input type="text" name="name" id="name"/>
+            </div>
+            <div th:class="formfield">
+                <label for="lastname">Sukunimi:</label>
+                <input type="text" name="lastname" id="lastname"/>
+            </div>
         </div>
-        <div th:class="formfield">
-            <label for="lastname">Sukunimi:</label>
-            <input type="text" name="lastname" id="lastname"/>
-        </div>
-        <input type="submit" value="Lisää">
+        <input th:class="btn-add" type="submit" value="Lisää">
     </form>
-
-    <a th:href="@{/}">Takaisin</a>
+    <div th:class="link-container">
+        <a th:class="btn" th:href="@{/}">Takaisin valikkoon</a>
+        <a th:class="btn" th:href="@{/car-list}">Näytää autot</a>
+    </div>
 </div>
 
 </body>

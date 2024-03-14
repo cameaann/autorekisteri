@@ -1,7 +1,10 @@
 package autorekisteri;
 
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
@@ -36,12 +39,16 @@ public class AutorekisteriController {
                           @RequestParam String malli,
                           @RequestParam String valmistusvuosi){
 
+        if(!valmistenumero.isEmpty() && !rekisterinumero.isEmpty() && !merkki.isEmpty() && !malli.isEmpty()){
             int valmVuosi = Integer.parseInt(valmistusvuosi);
             Auto auto = new Auto(valmistenumero, rekisterinumero,
                     merkki, malli, valmVuosi, new ArrayList<>());
             this.autoRepository.save(auto);
 
-        return "redirect:/car-edit/"+ auto.getId();
+            return "redirect:/car-edit/"+ auto.getId();
+        }
+
+        return "/car-add";
     }
 
     @GetMapping("/car-edit/{autoId}")
@@ -52,28 +59,39 @@ public class AutorekisteriController {
         return "car-edit";
     }
 
+    @Transactional
     @PostMapping("/car-edit/{autoId}/owners")
     public String addOwner(
+            Model model,
             @PathVariable Long autoId,
-            @RequestParam Long ownerId) {
-        Omistaja omistaja = this.omistajaRepository.getReferenceById(ownerId);
-        Auto auto = this.autoRepository.getReferenceById(autoId);
-        omistaja.getAutot().add(auto);
-        this.omistajaRepository.save(omistaja);
+            @RequestParam(required = false) Long ownerId,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String lastname
+            ) {
+        if (ownerId != null) {
+            Omistaja omistaja = this.omistajaRepository.getReferenceById(ownerId);
+            Auto auto = this.autoRepository.getReferenceById(autoId);
+            if(!omistaja.getAutot().contains(auto)){
+                omistaja.getAutot().add(auto);
+            }else{
+                model.addAttribute("error", "Tämä omistaja on jo listassa");
+                return "redirect:/car-edit/" + autoId;
+            }
 
+
+        } else if (name != null && lastname != null) {
+            Omistaja omistaja = new Omistaja(name, lastname, new ArrayList<>());
+            this.omistajaRepository.save(omistaja);
+            Auto auto = this.autoRepository.getReferenceById(autoId);
+            omistaja.getAutot().add(auto);
+            this.omistajaRepository.save(omistaja);
+
+        } else {
+            throw new IllegalArgumentException("Existing or new owner expected");
+        }
         return "redirect:/car-edit/" + autoId;
     }
 
-//    @PostMapping("/car-edit/")
-//    public String addNewOwner(@RequestParam String name,
-//                           @RequestParam String lastname) {
-//        if (!name.isEmpty() && !lastname.isEmpty()) {
-//            Omistaja omistaja = new Omistaja(name, lastname, new ArrayList<>());
-//            this.omistajaRepository.save(omistaja);
-//        }
-//
-//        return "redirect:/addOwner";
-//    }
 
     @GetMapping("/car-list")
     public String showOmistajatAutot(Model model) {

@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="reset.css">
+    <link rel="stylesheet" th:href="styles.css">
     <title>Autorekisteri</title>
 </head>
 <body>
-    <div>
-        <h1>Tervetuloa Autorekisteri</h1>
-        <div>
-            <a th:href="@{car-add}">Lisää auto</a>
-            <a th:href="@{car-list}">Näytää autot</a>
+    <div th:class="wrap-container">
+        <h1>Tervetuloa Autorekisteriin</h1>
+        <div th:class="link-container">
+            <a th:class="btn" th:href="@{car-add}">Lisää auto</a>
+            <a th:class="btn" th:href="@{car-list}">Näytää autot</a>
         </div>
     </div>
 </body>

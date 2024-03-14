@@ -2,21 +2,12 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="reset.css">
+    <link rel="stylesheet" th:href="styles.css">
     <title>Lisää auto</title>
 </head>
 <body>
-<div>
-    <h1>Autot</h1>
-    <ul>
-        <li th:each="auto : ${autot}">
-            <a th:href="@{/car-edit/{id}(id=${auto.id})}">
-                <span th:text="${auto.getMerkki()}"></span>
-                <span th:text="${auto.getMalli()}"></span>
-            </a>
-        </li>
-    </ul>
-
-
+<div th:class="wrap-container">
     <h1>Lisää auto</h1>
 
     <form th:action="@{/car-add}" method="post">
@@ -41,11 +32,11 @@
             <input type="text" name="valmistusvuosi" id="valmistusvuosi"/>
         </div>
 
-        <input type="submit" value="Lisää">
+        <input th:class="btn-add" type="submit" value="Lisää">
 
     </form>
 
-    <a th:href="@{/}">Takaisin</a>
+    <a th:class="btn" th:href="@{/}">Takaisin</a>
 </div>
 
 

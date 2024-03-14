@@ -2,36 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/reset.css">
+    <link rel="stylesheet" href="/styles.css">
     <title>Näytää autot</title>
 </head>
 <body>
-<div>
-  <h1>Autot</h1>
+<div th:class="container">
+    <h1>Autot</h1>
     <table>
         <thead>
         <tr>
-            <td>Rekisterinumero</td>
-            <td>Merkki</td>
-            <td>Malli</td>
-            <td>Valmistusvuosi</td>
-            <td>Omistaja</td>
+            <th>Valmistenumero</th>
+            <th>Rekisterinumero</th>
+            <th>Merkki</th>
+            <th>Malli</th>
+            <th>Valmistusvuosi</th>
+            <th>Omistajat</th>
+            <th>Muokata</th>
         </tr>
         </thead>
         <tbody>
-            <tr th:each="auto : ${autot}">
-                <td th:text="${auto.getRekisterinumero()}"></td>
-                <td th:text="${auto.getMerkki()}"></td>
-                <td th:text="${auto.getMalli()}"></td>
-                <td th:text="${auto.getValmistusvuosi()}"></td>
-                <td th:each="omistaja : ${auto.getOmistajat()}">
-                    <span th:text="${omistaja.getEtunimi()}"></span>
-                    <span th:text="${omistaja.getSukunimi()}"></span>
-                </td>
-            </tr>
+        <tr th:each="auto : ${autot}">
+            <td th:text="${auto.getValmistenumero()}"></td>
+            <td th:text="${auto.getRekisterinumero()}"></td>
+            <td th:text="${auto.getMerkki()}"></td>
+            <td th:text="${auto.getMalli()}"></td>
+            <td th:text="${auto.getValmistusvuosi()}"></td>
+            <td>
+                <ul th:each="omistaja :${auto.getOmistajat()}">
+                    <li th:text="|${omistaja.getEtunimi()} ${omistaja.getSukunimi()}|"></li>
+                </ul>
+            </td>
+            <td>
+                <a th:class="btn" th:href="@{/car-edit/{id}(id=${auto.id})}">Muokata</a>
+            </td>
+        </tr>
         </tbody>
     </table>
 
-  <a th:href="@{/}">Takaisin</a>
+    <a th:class="btn" th:href="@{/}">Takaisin valikkoon</a>
 </div>
 
 
